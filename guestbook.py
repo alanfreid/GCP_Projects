@@ -19,6 +19,7 @@ import os
 import urllib
 
 from google.appengine.api import users
+from google.appengine.api import mail
 from google.appengine.ext import ndb
 
 import jinja2
@@ -112,6 +113,8 @@ class Guestbook(webapp2.RequestHandler):
 
         greeting.content = self.request.get('content')
         greeting.put()
+        
+        mail.send_mail(sender="Alan Freid <deltonalf@gmail.com>", to="Alan Freid <alanfreid@yahoo.com>", subject="Hi from GCP", body="Hello, glad you were here.")
 
         query_params = {'guestbook_name': guestbook_name}
         self.redirect('/?' + urllib.urlencode(query_params))
